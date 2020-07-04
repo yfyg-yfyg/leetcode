@@ -67,3 +67,60 @@ public:
         return false;
     }
 };
+
+
+class Solution {
+  private:
+    int removeBackspace(string S, int pos) {
+        int sharp_count = 1;
+        pos --;
+        while ( sharp_count >=1 && pos >= 0 ) {
+            if (S[pos--] == '#') {
+                sharp_count ++;
+            }
+            else {
+                sharp_count --;
+            }
+        }
+
+        return pos;
+    }
+
+  public:
+    bool backspaceCompare(string S, string T) {
+       int i = S.length() - 1;
+       int j = T.length() - 1;
+
+       while(true) {
+           while (i >=0 && j >= 0 &&
+                  S[i] != '#' && T[j] != '#' && S[i] == T[j]) {
+               i --;
+               j --;
+           }
+
+           if (i >= 0 && S[i] == '#') {
+               i = removeBackspace(S, i);
+           }
+           cout << i << endl;
+
+           if (j >= 0 && T[j] == '#') {
+               j = removeBackspace(T,j);
+           }
+           cout << j << endl << endl;
+ 
+           if (i < 0 && j < 0 ) {
+               return true;
+           }
+           if (i >= 0 && S[i] != '#' && j < 0 ||
+               j >= 0 && T[j] != '#' && i < 0)  {
+                   return false;
+               }
+
+           else if (i >=0 && S[i] != '#' && j >=0 && T[j] != '#' && S[i] != T[j]) {
+               return false;
+           } 
+        }
+      
+       return false;
+    }
+};
