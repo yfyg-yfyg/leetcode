@@ -37,3 +37,41 @@ public:
         return max_dist;
     }
 };
+
+
+class Solution {
+public:
+    int maxDistToClosest(vector<int>& seats) {
+
+      int max_dist = 0;
+      int distance = 0;
+      int length = seats.size();
+      for (int i = 0; i < length; i ++) {
+         if (seats[i] == 0) {
+            distance ++;
+         }
+         else {
+            if (distance != 0) {
+                max_dist = max(max_dist, (distance + 1) / 2);
+                distance = 0;
+            }
+         }
+      }
+
+      for (int i = 0; i < length; i ++) {
+         if (seats[i] != 0) {
+            max_dist = max(max_dist, i);
+            break;
+         }
+     }
+
+     for (int i = length - 1; i >= 0; i --) {
+          if (seats[i] != 0) {
+              max_dist = max(max_dist, length - i - 1);
+              break;
+          }
+      }
+
+      return max_dist;
+    }
+};
