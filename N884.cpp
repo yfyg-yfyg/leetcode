@@ -2,51 +2,27 @@ class Solution {
   
     unordered_map<string, int> InsertToMap(string A) {
         unordered_map<string, int> a_map;
-        int word_begin = -1;
-
-        for (int i = 0; i < A.length(); i ++) {
-            if (A[i] != ' ' && word_begin == -1) {
-                if (i == A.length() - 1) {
-                    string word;
-                    word += A[i];
-                    auto it = a_map.find(word);
-                    if (it == a_map.end()) {
-                        a_map.insert(std::make_pair<string, int>(string(word), int(1)));
-                    }
-                    else {
-                        it->second ++;
-                    }
-                }
-                else 
-                    word_begin = i;
+       
+        string word;
+        for(auto &a_char : A) {
+            if (a_char == ' ' && !word.empty()) {
+                a_map[word] ++;
+                word.clear();
             }
-            else  {
-               string word;
-               if (A[i] == ' ' && word_begin != -1)   {
-                  word = A.substr(word_begin, i - word_begin);
-                  word_begin = -1;
-               }
-               else if (i == A.length() -1 && word_begin != -1) {
-                   word = A.substr(word_begin, i - word_begin + 1);
-               }
-
-               if (!word.empty()) {
-                   auto it = a_map.find(word);
-                   if (it == a_map.end()) {
-                       a_map.insert(make_pair(string(word), int(1)));
-                   }
-                   else {
-                     it->second ++;
-                    }
-               }
+            else if (a_char != ' ') {
+                    word += a_char;
             }
         }
-
+           
+        if (!word.empty()) {
+            a_map[word] ++;
+            word.clear();
+        }
+       
         return a_map;
     }
 
     void Check(unordered_map<string, int> &A, unordered_map<string, int> &B, vector<string> &result) {
-       
         for (auto it = A.begin(); it != A.end(); it ++) {
             if (it->second == 1 && B.find(it->first) == B.end()) {
                 result.push_back(it->first);
