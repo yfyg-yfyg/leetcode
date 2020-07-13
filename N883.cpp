@@ -15,7 +15,7 @@ public:
                 x_max = max(x_max, grid[y][x]); 
             }
             area += y_max + x_max;
-        }
+       }
 
         return area;
     }
