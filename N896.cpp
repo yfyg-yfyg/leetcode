@@ -24,3 +24,31 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+
+    private :
+    bool increasing(vector<int> &A) {
+        for (int i = 0; i < A.size() - 1; i ++) {
+            if (A[i] > A[i + 1])
+                return false;
+        }
+
+        return true;
+    }
+
+    bool decreasing(vector<int> &A) {
+        for (int i = 0; i < A.size() - 1; i ++) {
+            if (A[i] < A[i + 1])
+                return false;
+        }
+
+        return true;
+    }
+public:
+    bool isMonotonic(vector<int>& A) {
+
+        return decreasing(A) || increasing(A);
+    }
+};
