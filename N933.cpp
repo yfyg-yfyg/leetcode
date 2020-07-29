@@ -25,14 +25,16 @@ class RecentCounter {
 public:
     RecentCounter() {
     }
-
+   
     int ping(int t) {
 
-        while(!timestamps.empty() && t - timestamps.front() > 3000) {
+       timestamps.push_back(t);
+
+        while(t - timestamps.front() > 3000) {
             timestamps.pop_front();
         }
-
-        timestamps.push_back(t);
+       
         return timestamps.size();
      }
 };
+
