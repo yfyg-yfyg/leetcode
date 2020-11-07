@@ -2,31 +2,32 @@ class Solution {
     public int[] relativeSortArray(int[] arr1, int[] arr2) {
         
         HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < arr2.length; i ++) {
-            map.put(arr2[i], i);
+        for(int e : arr2) {
+            map.put(e,0);
         }
-         
-        Comparator<Integer> comp = (a, b) -> {
-            boolean containA = map.containsKey(a);
-            boolean containB = map.containsKey(b);
-            if (containA && containB) {
-                return map.get(a) - map.get(b);
-            }
-            else if (containA) {
-                return -1;
-            }
-            else if (containB) {
-                return 1;
+        
+        int[] ans = new int[arr1.length];
+        int end = ans.length - 1;
+        
+        for(int e : arr1) {
+            if(map.containsKey(e)) {
+               map.put(e, map.get(e) + 1);
             }
             else {
-                return a - b;
+                ans[end--] = e;
             }
-        };
+        }
         
-        arr1 = IntStream.of(arr1).boxed().sorted(comp).mapToInt(i -> i).toArray();
-     
-        
-        return arr1;
-        
+        int head = 0;
+        for (int e : arr2) {
+            for(int i = 0; i < map.get(e); i ++) {
+                ans[head++] = e;
+            }
+        }
+
+        Arrays.sort(ans, head, ans.length);
+        return ans;
+   
     }   
+     
 }
