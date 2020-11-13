@@ -1,15 +1,21 @@
 class Solution {
     public int findMin(int[] nums) {
-        int min = nums[0];
+        int l = 0, u = nums.length - 1;
         
-        for (int i = 1; i < nums.length; i ++) {
-            if (nums[i] - nums[i-1] < 0) {
-                return nums[i];
+        if (nums[nums.length - 1] >= nums[0])
+            return nums[0];
+
+        while(l < u) {
+            int m = l + ((u -l) >> 1);
+            if (nums[m] >= nums[0]) {
+                l = m + 1;
             }
-            
+            else if (nums[m] < nums[0]) {
+                u = m ;
+            }
         }
         
-        return min;
+        return nums[u];
     }
 }
 
